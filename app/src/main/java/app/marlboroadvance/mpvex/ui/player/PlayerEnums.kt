@@ -23,6 +23,7 @@ enum class VideoAspect(
 ) {
   Crop(R.string.player_aspect_crop),
   Fit(R.string.player_aspect_fit),
+  Fill(R.string.player_aspect_fill),
   Stretch(R.string.player_aspect_stretch),
 }
 
@@ -90,6 +91,7 @@ enum class Panels {
   SubtitleDelay,
   AudioDelay,
   VideoFilters,
+  Scaling,
 }
 
 sealed class PlayerUpdates {

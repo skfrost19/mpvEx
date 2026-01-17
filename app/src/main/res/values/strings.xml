@@ -361,6 +361,7 @@
     <string name="player_gesture_seek_indicator" translatable="false">%c%s\n[%s]</string>
 
     <string name="player_aspect_fit">Fit Screen</string>
+    <string name="player_aspect_fill">Fill</string>
     <string name="player_aspect_crop">Crop</string>
     <string name="player_aspect_stretch">Stretch</string>
 

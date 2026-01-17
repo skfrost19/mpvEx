@@ -468,12 +468,14 @@ fun RenderPlayerButton(
         icon =
           when (aspect) {
             VideoAspect.Fit -> Icons.Default.AspectRatio
+            VideoAspect.Fill -> Icons.Default.FitScreen
+            VideoAspect.Crop -> Icons.Default.ZoomIn
             VideoAspect.Stretch -> Icons.Default.ZoomOutMap
-            VideoAspect.Crop -> Icons.Default.FitScreen
           },
         onClick = {
           when (aspect) {
-            VideoAspect.Fit -> viewModel.changeVideoAspect(VideoAspect.Crop)
+            VideoAspect.Fit -> viewModel.changeVideoAspect(VideoAspect.Fill)
+            VideoAspect.Fill -> viewModel.changeVideoAspect(VideoAspect.Crop)
             VideoAspect.Crop -> viewModel.changeVideoAspect(VideoAspect.Stretch)
             VideoAspect.Stretch -> viewModel.changeVideoAspect(VideoAspect.Fit)
           }

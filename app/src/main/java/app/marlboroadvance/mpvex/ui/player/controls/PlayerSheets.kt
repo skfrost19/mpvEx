@@ -140,6 +140,7 @@ fun PlayerSheets(
         onStartTimer = onStartSleepTimer,
         onDismissRequest = onDismissRequest,
         onEnterFiltersPanel = { onOpenPanel(Panels.VideoFilters) },
+        onEnterScalingPanel = { onOpenPanel(Panels.Scaling) },
       )
     }
 

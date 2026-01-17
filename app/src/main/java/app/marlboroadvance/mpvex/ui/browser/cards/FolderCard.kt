@@ -146,8 +146,8 @@ fun FolderCard(
 
         Text(
           folder.name,
-          style = MaterialTheme.typography.titleSmall,
-          color = if (isRecentlyPlayed) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurface,
+          style = MaterialTheme.typography.titleSmall.copy(fontWeight = if (isRecentlyPlayed) FontWeight.Bold else FontWeight.Normal),
+          color = if (isRecentlyPlayed) androidx.compose.ui.graphics.lerp(MaterialTheme.colorScheme.tertiary, Color.Black, 0.2f) else MaterialTheme.colorScheme.onSurface,
           maxLines = maxLines,
           overflow = TextOverflow. Ellipsis,
           textAlign = androidx.compose.ui. text.style.TextAlign.Center,
@@ -218,8 +218,8 @@ fun FolderCard(
         ) {
           Text(
             folder.name,
-            style = MaterialTheme.typography.titleMedium,
-            color = if (isRecentlyPlayed) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = if (isRecentlyPlayed) FontWeight.Bold else FontWeight.Normal),
+            color = if (isRecentlyPlayed) androidx.compose.ui.graphics.lerp(MaterialTheme.colorScheme.tertiary, Color.Black, 0.2f) else MaterialTheme.colorScheme.onSurface,
             maxLines = maxLines,
             overflow = TextOverflow.Ellipsis,
           )

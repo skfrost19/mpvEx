@@ -258,12 +258,12 @@ fun VideoCard(
         // Title below thumbnail
         Text(
           text = video.displayName,
-          style = if (useFolderNameStyle) {
+          style = (if (useFolderNameStyle) {
             MaterialTheme.typography.titleSmall
           } else {
             if (gridColumns == 1) MaterialTheme.typography.titleMedium else MaterialTheme.typography.titleSmall
-          },
-          color = if (isRecentlyPlayed) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurface,
+          }).copy(fontWeight = if (isRecentlyPlayed) FontWeight.Bold else FontWeight.Normal),
+          color = if (isRecentlyPlayed) androidx.compose.ui.graphics.lerp(MaterialTheme.colorScheme.tertiary, Color.Black, 0.2f) else MaterialTheme.colorScheme.onSurface,
           maxLines = maxLines,
           overflow = TextOverflow. Ellipsis,
           textAlign = if (useFolderNameStyle) {
@@ -502,12 +502,12 @@ fun VideoCard(
         ) {
           Text(
             video.displayName,
-            style = if (useFolderNameStyle) {
+            style = (if (useFolderNameStyle) {
               MaterialTheme.typography.titleMedium
             } else {
               MaterialTheme.typography.titleSmall
-            },
-            color = if (isRecentlyPlayed) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.onSurface,
+            }).copy(fontWeight = if (isRecentlyPlayed) FontWeight.Bold else FontWeight.Normal),
+            color = if (isRecentlyPlayed) androidx.compose.ui.graphics.lerp(MaterialTheme.colorScheme.tertiary, Color.Black, 0.2f) else MaterialTheme.colorScheme.onSurface,
             maxLines = maxLines,
             overflow = TextOverflow.Ellipsis,
           )

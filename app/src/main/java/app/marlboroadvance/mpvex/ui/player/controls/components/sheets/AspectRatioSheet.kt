@@ -61,6 +61,7 @@ fun AspectRatioSheet(
       AspectRatio("21:9", 21.0 / 9.0),
       AspectRatio("32:9", 32.0 / 9.0),
       AspectRatio("1:1", 1.0),
+      AspectRatio("Fill", -2.0),
       AspectRatio("2.35:1", 2.35),
       AspectRatio("2.39:1", 2.39),
     )

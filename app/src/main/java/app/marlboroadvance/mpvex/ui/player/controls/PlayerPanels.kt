@@ -20,9 +20,12 @@ import app.marlboroadvance.mpvex.ui.player.controls.components.panels.AudioDelay
 import app.marlboroadvance.mpvex.ui.player.controls.components.panels.SubtitleDelayPanel
 import app.marlboroadvance.mpvex.ui.player.controls.components.panels.SubtitleSettingsPanel
 import app.marlboroadvance.mpvex.ui.player.controls.components.panels.VideoSettingsPanel
+import app.marlboroadvance.mpvex.ui.player.controls.components.panels.ScalingPanel
+import app.marlboroadvance.mpvex.ui.player.PlayerViewModel
 
 @Composable
 fun PlayerPanels(
+  viewModel: PlayerViewModel,
   panelShown: Panels,
   onDismissRequest: () -> Unit,
   modifier: Modifier = Modifier,
@@ -52,6 +55,12 @@ fun PlayerPanels(
       }
       Panels.VideoFilters -> {
         VideoSettingsPanel(onDismissRequest)
+      }
+      Panels.Scaling -> {
+        ScalingPanel(
+          viewModel = viewModel,
+          onDismissRequest = onDismissRequest
+        )
       }
     }
   }

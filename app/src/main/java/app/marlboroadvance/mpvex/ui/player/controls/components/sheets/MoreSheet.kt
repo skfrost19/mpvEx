@@ -75,6 +75,7 @@ fun MoreSheet(
   onStartTimer: (Int) -> Unit,
   onDismissRequest: () -> Unit,
   onEnterFiltersPanel: () -> Unit,
+  onEnterScalingPanel: () -> Unit,
   modifier: Modifier = Modifier,
 ) {
   val advancedPreferences = koinInject<AdvancedPreferences>()
@@ -150,6 +151,15 @@ fun MoreSheet(
             ) {
               Icon(imageVector = Icons.Default.Tune, contentDescription = null)
               Text(text = stringResource(id = R.string.player_sheets_filters_title))
+            }
+          }
+          TextButton(onClick = onEnterScalingPanel) {
+            Row(
+              verticalAlignment = Alignment.CenterVertically,
+              horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall),
+            ) {
+              Icon(imageVector = Icons.Default.KeyboardAlt, contentDescription = null)
+              Text(text = "Scaling")
             }
           }
         }

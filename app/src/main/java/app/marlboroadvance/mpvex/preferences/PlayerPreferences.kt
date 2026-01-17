@@ -57,6 +57,10 @@ class PlayerPreferences(
   val playlistMode = preferenceStore.getBoolean("playlist_mode", true)
 
   val useWavySeekbar = preferenceStore.getBoolean("use_wavy_seekbar", true)
+  
+  // Custom video scaling memory
+  val videoScaleX = preferenceStore.getFloat("video_scale_x", 1.0f)
+  val videoScaleY = preferenceStore.getFloat("video_scale_y", 1.0f)
 
   val repeatMode = preferenceStore.getEnum("repeat_mode", RepeatMode.OFF)
   val shuffleEnabled = preferenceStore.getBoolean("shuffle_enabled", false)

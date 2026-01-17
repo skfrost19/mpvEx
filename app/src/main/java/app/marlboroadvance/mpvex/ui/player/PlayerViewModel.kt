@@ -209,6 +209,10 @@ class PlayerViewModel(
     // Restore repeat mode and shuffle state from preferences
     _repeatMode.value = playerPreferences.repeatMode.get()
     _shuffleEnabled.value = playerPreferences.shuffleEnabled.get()
+    
+    // Apply initial scaling
+    MPVLib.setPropertyDouble("video-scale-x", playerPreferences.videoScaleX.get().toDouble())
+    MPVLib.setPropertyDouble("video-scale-y", playerPreferences.videoScaleY.get().toDouble())
   }
 
   // Cached values
@@ -618,6 +622,9 @@ class PlayerViewModel(
         MPVLib.setPropertyDouble("panscan", 0.0)
         MPVLib.setPropertyDouble("video-aspect-override", -1.0)
       }
+      VideoAspect.Fill -> {
+        setVideoScaleFill()
+      }
       VideoAspect.Crop -> {
         // To CROP: Set panscan. MPV will auto-reset video-aspect-override.
         MPVLib.setPropertyDouble("panscan", 1.0)
@@ -644,15 +651,30 @@ class PlayerViewModel(
   }
 
   fun setCustomAspectRatio(ratio: Double) {
-    MPVLib.setPropertyDouble("panscan", 0.0)
-    MPVLib.setPropertyDouble("video-aspect-override", ratio)
+    if (ratio == -2.0) { // Special value for Fill mode
+        setVideoScaleFill()
+    } else {
+        MPVLib.setPropertyDouble("panscan", 0.0)
+        MPVLib.setPropertyDouble("video-aspect-override", ratio)
+        // Reset scale if needed when selecting other ratios
+        resetVideoScale() 
+    }
     playerPreferences.currentAspectRatio.set(ratio.toFloat())
     playerUpdate.value = PlayerUpdates.AspectRatio
   }
 
   fun restoreCustomAspectRatio() {
     val savedRatio = playerPreferences.currentAspectRatio.get()
-    if (savedRatio > 0) {
+    
+    // Apply saved scaling
+    val savedScaleX = playerPreferences.videoScaleX.get() 
+    val savedScaleY = playerPreferences.videoScaleY.get()
+    setVideoScaleX(savedScaleX)
+    setVideoScaleY(savedScaleY)
+
+    if (savedRatio == -2.0f) {
+        setVideoScaleFill()
+    } else if (savedRatio > 0) {
       MPVLib.setPropertyDouble("panscan", 0.0)
       MPVLib.setPropertyDouble("video-aspect-override", savedRatio.toDouble())
     }
@@ -811,6 +833,52 @@ class PlayerViewModel(
 
   fun resetVideoZoom() {
     setVideoZoom(0f)
+  }
+
+  // ==================== Custom Scaling ====================
+
+  private val _videoScaleX = MutableStateFlow(playerPreferences.videoScaleX.get())
+  val videoScaleX: StateFlow<Float> = _videoScaleX.asStateFlow()
+
+  private val _videoScaleY = MutableStateFlow(playerPreferences.videoScaleY.get())
+  val videoScaleY: StateFlow<Float> = _videoScaleY.asStateFlow()
+
+  init {
+      // Apply saved scaling on startup
+      val savedScaleX = playerPreferences.videoScaleX.get()
+      val savedScaleY = playerPreferences.videoScaleY.get()
+      // We set the initial value to the flow, but MPV properties are not ready in init usually.
+      // Better to apply them when the player is ready or file is loaded.
+      // However, Flows are initialized here.
+      _videoScaleX.value = savedScaleX
+      _videoScaleY.value = savedScaleY
+  }
+
+  fun setVideoScaleX(scale: Float) {
+    _videoScaleX.value = scale
+    MPVLib.setPropertyDouble("video-scale-x", scale.toDouble())
+    playerPreferences.videoScaleX.set(scale)
+  }
+
+  fun setVideoScaleY(scale: Float) {
+    _videoScaleY.value = scale
+    MPVLib.setPropertyDouble("video-scale-y", scale.toDouble())
+    playerPreferences.videoScaleY.set(scale)
+  }
+
+  fun resetVideoScale() {
+    MPVLib.setPropertyString("video-aspect-override", "-1")
+    MPVLib.setPropertyString("panscan", "0.0")
+    setVideoScaleX(1.0f)
+    setVideoScaleY(1.0f)
+  }
+  
+  fun setVideoScaleFill() {
+    MPVLib.setPropertyString("video-aspect-override", "-1")
+    MPVLib.setPropertyString("panscan", "1.0")
+    // Reset custom scaling when using Fill mode to avoid conflicts
+    setVideoScaleX(1.0f)
+    setVideoScaleY(1.0f)
   }
 
   // ==================== Frame Navigation ====================

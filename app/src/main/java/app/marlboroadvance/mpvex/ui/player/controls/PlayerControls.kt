@@ -1183,6 +1183,7 @@ fun PlayerControls(
 
     val panel by viewModel.panelShown.collectAsState()
     PlayerPanels(
+      viewModel = viewModel,
       panelShown = panel,
       onDismissRequest = { onOpenPanel(Panels.None) },
     )
