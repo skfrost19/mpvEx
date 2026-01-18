@@ -24,6 +24,8 @@ interface RecentlyPlayedRepository {
 
   fun observeLastPlayedForHighlight(): Flow<RecentlyPlayedEntity?>
 
+  fun observeLastPlayedInFolder(folderPath: String): Flow<RecentlyPlayedEntity?>
+
   suspend fun getRecentlyPlayed(limit: Int = 10): List<RecentlyPlayedEntity>
 
   fun observeRecentlyPlayed(limit: Int = 50): Flow<List<RecentlyPlayedEntity>>

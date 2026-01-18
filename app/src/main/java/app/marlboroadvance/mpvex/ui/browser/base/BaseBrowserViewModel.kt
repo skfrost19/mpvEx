@@ -25,7 +25,7 @@ abstract class BaseBrowserViewModel(
    * Observable recently played file path for highlighting
    * Automatically filters out non-existent files
    */
-  val recentlyPlayedFilePath: StateFlow<String?> =
+  open val recentlyPlayedFilePath: StateFlow<String?> =
     RecentlyPlayedOps
       .observeLastPlayedPath()
       .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)

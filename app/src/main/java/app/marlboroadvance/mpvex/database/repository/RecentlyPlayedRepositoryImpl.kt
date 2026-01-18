@@ -67,6 +67,9 @@ class RecentlyPlayedRepositoryImpl(
   override fun observeLastPlayedForHighlight(): Flow<RecentlyPlayedEntity?> =
     recentlyPlayedDao.observeLastPlayedForHighlight()
 
+  override fun observeLastPlayedInFolder(folderPath: String): Flow<RecentlyPlayedEntity?> =
+    recentlyPlayedDao.observeLastPlayedInFolder(folderPath)
+
   override suspend fun getRecentlyPlayed(limit: Int): List<RecentlyPlayedEntity> =
     recentlyPlayedDao.getRecentlyPlayed(limit)
 

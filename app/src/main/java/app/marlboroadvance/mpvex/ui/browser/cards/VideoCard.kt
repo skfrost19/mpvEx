@@ -262,8 +262,8 @@ fun VideoCard(
             MaterialTheme.typography.titleSmall
           } else {
             if (gridColumns == 1) MaterialTheme.typography.titleMedium else MaterialTheme.typography.titleSmall
-          }).copy(fontWeight = if (isRecentlyPlayed) FontWeight.Bold else FontWeight.Normal),
-          color = if (isRecentlyPlayed) androidx.compose.ui.graphics.lerp(MaterialTheme.colorScheme.tertiary, Color.Black, 0.2f) else MaterialTheme.colorScheme.onSurface,
+          }).copy(fontWeight = if (isRecentlyPlayed) FontWeight.ExtraBold else FontWeight.Normal),
+          color = if (isRecentlyPlayed) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
           maxLines = maxLines,
           overflow = TextOverflow. Ellipsis,
           textAlign = if (useFolderNameStyle) {
@@ -506,8 +506,8 @@ fun VideoCard(
               MaterialTheme.typography.titleMedium
             } else {
               MaterialTheme.typography.titleSmall
-            }).copy(fontWeight = if (isRecentlyPlayed) FontWeight.Bold else FontWeight.Normal),
-            color = if (isRecentlyPlayed) androidx.compose.ui.graphics.lerp(MaterialTheme.colorScheme.tertiary, Color.Black, 0.2f) else MaterialTheme.colorScheme.onSurface,
+            }).copy(fontWeight = if (isRecentlyPlayed) FontWeight.ExtraBold else FontWeight.Normal),
+            color = if (isRecentlyPlayed) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
             maxLines = maxLines,
             overflow = TextOverflow.Ellipsis,
           )

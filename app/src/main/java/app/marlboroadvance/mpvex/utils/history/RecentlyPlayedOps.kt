@@ -132,6 +132,22 @@ object RecentlyPlayedOps {
       }.distinctUntilChanged()
       .flowOn(Dispatchers.IO)
 
+  @OptIn(ExperimentalCoroutinesApi::class)
+  fun observeLastPlayedInFolder(folderPath: String): Flow<String?> =
+    repository
+      .observeLastPlayedInFolder(folderPath)
+      .mapLatest { entity ->
+        val path = entity?.filePath
+        if (path.isNullOrEmpty()) {
+          null
+        } else if (fileExists(path)) {
+          path
+        } else {
+          null
+        }
+      }.distinctUntilChanged()
+      .flowOn(Dispatchers.IO)
+
   suspend fun onVideoDeleted(filePath: String) {
     if (filePath.isBlank()) return
     withContext(Dispatchers.IO) {

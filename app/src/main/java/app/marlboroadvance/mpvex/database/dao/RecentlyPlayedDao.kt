@@ -46,6 +46,17 @@ interface RecentlyPlayedDao {
   )
   fun observeLastPlayedForHighlight(): Flow<RecentlyPlayedEntity?>
 
+  @Query(
+    """
+    SELECT * FROM RecentlyPlayedEntity 
+    WHERE filePath LIKE :folderPath || '/%' 
+    AND filePath NOT LIKE :folderPath || '/%/%'
+    ORDER BY timestamp DESC 
+    LIMIT 1
+    """
+  )
+  fun observeLastPlayedInFolder(folderPath: String): Flow<RecentlyPlayedEntity?>
+
   @Query("""
     SELECT * FROM RecentlyPlayedEntity 
     WHERE (NOT (filePath LIKE '%.m3u%' OR filePath LIKE '%.m3u8%')) 
