@@ -87,6 +87,7 @@ import app.marlboroadvance.mpvex.ui.compose.LocalLazyGridState
 import app.marlboroadvance.mpvex.ui.compose.LocalLazyListState
 import app.marlboroadvance.mpvex.ui.preferences.PreferencesScreen
 import app.marlboroadvance.mpvex.ui.utils.LocalBackStack
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import app.marlboroadvance.mpvex.utils.media.MediaUtils
 import app.marlboroadvance.mpvex.utils.permission.PermissionUtils
 import app.marlboroadvance.mpvex.utils.sort.SortUtils
@@ -413,6 +414,9 @@ object FolderListScreen : Screen {
                   label = "scrollbarAlpha",
                 )
 
+                // Smooth scrolling behavior optimized for high refresh rate displays
+                val smoothFlingBehavior = rememberSmoothFlingBehavior()
+
                 LazyColumnScrollbar(
                   state = searchListState,
                   settings = ScrollbarSettings(
@@ -427,6 +431,7 @@ object FolderListScreen : Screen {
                     state = searchListState,
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = PaddingValues(start = 8.dp, end = 8.dp),
+                    flingBehavior = smoothFlingBehavior,
                   ) {
                     items(filteredVideos) { video ->
                       VideoCard(
@@ -555,6 +560,9 @@ private fun FolderListContent(
     MediaLayoutMode.GRID -> folderGridColumns
   }
 
+  // Smooth scrolling behavior optimized for high refresh rate displays
+  val smoothFlingBehavior = rememberSmoothFlingBehavior()
+
   PullRefreshBox(
     isRefreshing = isRefreshing,
     onRefresh = onRefresh,
@@ -602,6 +610,7 @@ private fun FolderListContent(
             contentPadding = PaddingValues(start = 8.dp, end = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(4.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp),
+            flingBehavior = smoothFlingBehavior,
           ) {
           items(folders.size) { index ->
             val folder = folders[index]
@@ -644,6 +653,7 @@ private fun FolderListContent(
             state = listState,
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(start = 8.dp, end = 8.dp),
+            flingBehavior = smoothFlingBehavior,
           ) {
             items(folders) { folder ->
               val isRecentlyPlayed =

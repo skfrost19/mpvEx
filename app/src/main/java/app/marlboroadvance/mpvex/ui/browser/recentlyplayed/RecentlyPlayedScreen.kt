@@ -54,6 +54,7 @@ import app.marlboroadvance.mpvex.ui.browser.states.EmptyState
 import app.marlboroadvance.mpvex.ui.compose.LocalLazyGridState
 import app.marlboroadvance.mpvex.ui.compose.LocalLazyListState
 import app.marlboroadvance.mpvex.ui.utils.LocalBackStack
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import app.marlboroadvance.mpvex.utils.media.MediaUtils
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
@@ -338,6 +339,9 @@ private fun RecentItemsContent(
     label = "scrollbarAlpha",
   )
 
+  // Smooth scrolling behavior optimized for high refresh rate displays
+  val smoothFlingBehavior = rememberSmoothFlingBehavior()
+
   PullRefreshBox(
     isRefreshing = isRefreshing,
     onRefresh = { },
@@ -360,6 +364,7 @@ private fun RecentItemsContent(
           contentPadding = PaddingValues(start = 8.dp, end = 8.dp),
           horizontalArrangement = Arrangement.spacedBy(8.dp),
           verticalArrangement = Arrangement.spacedBy(8.dp),
+          flingBehavior = smoothFlingBehavior,
         ) {
           items(
             count = recentItems.size,
@@ -460,6 +465,7 @@ private fun RecentItemsContent(
           state = listState,
           modifier = Modifier.fillMaxSize(),
           contentPadding = PaddingValues(start = 8.dp, end = 8.dp),
+          flingBehavior = smoothFlingBehavior,
         ) {
           items(
             count = recentItems.size,

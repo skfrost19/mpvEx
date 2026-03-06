@@ -63,6 +63,7 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import app.marlboroadvance.mpvex.ui.preferences.components.PlayerButtonChip
 import app.marlboroadvance.mpvex.ui.preferences.components.PlayerLayoutPreview
 import app.marlboroadvance.mpvex.ui.preferences.components.ControlRegionReference
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyGridState
 
@@ -220,9 +221,11 @@ data class ControlLayoutEditorScreen(
                 }
             }
         }
+        val smoothFlingBehavior = rememberSmoothFlingBehavior()
 
         LazyVerticalGrid(
             state = gridState,
+            flingBehavior = smoothFlingBehavior,
             columns = GridCells.Adaptive(minSize = 72.dp),
             contentPadding = androidx.compose.foundation.layout.PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp),

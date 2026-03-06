@@ -53,6 +53,7 @@ import app.marlboroadvance.mpvex.presentation.Screen
 import app.marlboroadvance.mpvex.presentation.components.ConfirmDialog
 import app.marlboroadvance.mpvex.presentation.crash.CrashActivity
 import app.marlboroadvance.mpvex.ui.utils.LocalBackStack
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import app.marlboroadvance.mpvex.utils.history.RecentlyPlayedOps
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -211,10 +212,12 @@ object AdvancedPreferencesScreen : Screen {
             preferences.mpvConfStorageUri.set(uri.toString())
           }
         val mpvConfStorageLocation by preferences.mpvConfStorageUri.collectAsState()
+        val smoothFlingBehavior = rememberSmoothFlingBehavior()
         LazyColumn(
           modifier = Modifier
             .fillMaxSize()
             .padding(padding),
+          flingBehavior = smoothFlingBehavior,
         ) {
           // Backup & Restore Section
           item {

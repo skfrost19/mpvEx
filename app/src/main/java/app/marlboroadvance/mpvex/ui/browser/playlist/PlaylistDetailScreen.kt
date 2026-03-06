@@ -70,6 +70,7 @@ import app.marlboroadvance.mpvex.ui.browser.components.BrowserTopBar
 import app.marlboroadvance.mpvex.ui.browser.selection.rememberSelectionManager
 import app.marlboroadvance.mpvex.ui.player.PlayerActivity
 import app.marlboroadvance.mpvex.ui.utils.LocalBackStack
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import app.marlboroadvance.mpvex.utils.media.MediaInfoOps
 import app.marlboroadvance.mpvex.utils.media.MediaUtils
 import kotlinx.coroutines.launch
@@ -568,6 +569,9 @@ private fun PlaylistVideoListContent(
       .maxByOrNull { it.playlistItem.lastPlayedAt }
   }
 
+  // Smooth scrolling behavior optimized for high refresh rate displays
+  val smoothFlingBehavior = rememberSmoothFlingBehavior()
+
   when {
     isLoading -> {
       Box(
@@ -638,6 +642,7 @@ private fun PlaylistVideoListContent(
           state = listState,
           modifier = Modifier.fillMaxSize(),
           contentPadding = PaddingValues(start = 8.dp, end = 8.dp),
+          flingBehavior = smoothFlingBehavior,
         ) {
           items(
             count = videoItems.size,

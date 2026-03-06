@@ -52,6 +52,7 @@ import app.marlboroadvance.mpvex.preferences.preference.collectAsState
 import app.marlboroadvance.mpvex.presentation.Screen
 import app.marlboroadvance.mpvex.ui.player.controls.components.SeekbarPreview
 import app.marlboroadvance.mpvex.ui.utils.LocalBackStack
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import kotlinx.serialization.Serializable
 import me.zhanghai.compose.preference.ListPreference
 import me.zhanghai.compose.preference.ProvidePreferenceLocals
@@ -123,11 +124,13 @@ object PlayerControlsPreferencesScreen : Screen {
       },
     ) { padding ->
       ProvidePreferenceLocals {
+        val smoothFlingBehavior = rememberSmoothFlingBehavior()
         LazyColumn(
           modifier =
             Modifier
               .fillMaxSize()
               .padding(padding),
+          flingBehavior = smoothFlingBehavior,
         ) {
           // Landscape Controls Section
           item {

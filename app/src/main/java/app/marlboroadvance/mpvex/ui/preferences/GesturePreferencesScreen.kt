@@ -39,6 +39,7 @@ import app.marlboroadvance.mpvex.presentation.Screen
 import app.marlboroadvance.mpvex.ui.player.CustomKeyCodes
 import app.marlboroadvance.mpvex.ui.player.SingleActionGesture
 import app.marlboroadvance.mpvex.ui.utils.LocalBackStack
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.serialization.Serializable
 import me.zhanghai.compose.preference.FooterPreference
@@ -84,11 +85,13 @@ object GesturePreferencesScreen : Screen {
       },
     ) { padding ->
       ProvidePreferenceLocals {
+        val smoothFlingBehavior = rememberSmoothFlingBehavior()
         LazyColumn(
           modifier =
             Modifier
               .fillMaxSize()
               .padding(padding),
+          flingBehavior = smoothFlingBehavior,
         ) {
           item {
             PreferenceSectionHeader(title = stringResource(R.string.pref_gesture_double_tap_title))

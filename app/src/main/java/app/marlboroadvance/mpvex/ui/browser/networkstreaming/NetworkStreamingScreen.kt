@@ -61,6 +61,7 @@ import app.marlboroadvance.mpvex.ui.browser.dialogs.EditConnectionSheet
 import app.marlboroadvance.mpvex.ui.browser.states.EmptyState
 import app.marlboroadvance.mpvex.ui.preferences.PreferencesScreen
 import app.marlboroadvance.mpvex.ui.utils.LocalBackStack
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import app.marlboroadvance.mpvex.utils.media.MediaUtils
 import kotlinx.serialization.Serializable
 
@@ -145,8 +146,10 @@ object NetworkStreamingScreen : Screen {
         }
       },
     ) { padding ->
+      val smoothFlingBehavior = rememberSmoothFlingBehavior()
       LazyColumn(
         state = listState,
+        flingBehavior = smoothFlingBehavior,
         modifier = Modifier
           .fillMaxSize()
           .padding(padding),

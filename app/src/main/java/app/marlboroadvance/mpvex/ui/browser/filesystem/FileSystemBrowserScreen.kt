@@ -90,6 +90,7 @@ import app.marlboroadvance.mpvex.ui.compose.LocalLazyGridState
 import app.marlboroadvance.mpvex.ui.compose.LocalLazyListState
 import app.marlboroadvance.mpvex.ui.preferences.PreferencesScreen
 import app.marlboroadvance.mpvex.ui.utils.LocalBackStack
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import app.marlboroadvance.mpvex.utils.media.CopyPasteOps
 import app.marlboroadvance.mpvex.utils.media.MediaUtils
 import app.marlboroadvance.mpvex.utils.permission.PermissionUtils
@@ -1009,6 +1010,9 @@ private fun FileSystemBrowserContent(
         listState = listState,
         modifier = modifier.fillMaxSize(),
       ) {
+        // Smooth scrolling behavior optimized for high refresh rate displays
+        val smoothFlingBehavior = rememberSmoothFlingBehavior()
+
         if (isGridMode) {
           LazyVerticalGridScrollbar(
             state = gridState,
@@ -1025,6 +1029,7 @@ private fun FileSystemBrowserContent(
             contentPadding = PaddingValues(start = 8.dp, end = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
+            flingBehavior = smoothFlingBehavior,
           ) {
             // Breadcrumb navigation (if not at root)
             if (!isAtRoot && breadcrumbs.isNotEmpty()) {
@@ -1109,6 +1114,7 @@ private fun FileSystemBrowserContent(
               state = listState,
               modifier = Modifier.fillMaxSize(),
               contentPadding = PaddingValues(start = 8.dp, end = 8.dp),
+              flingBehavior = smoothFlingBehavior,
             ) {
               // Breadcrumb navigation (if not at root)
               if (!isAtRoot && breadcrumbs.isNotEmpty()) {

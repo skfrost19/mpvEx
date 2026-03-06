@@ -30,6 +30,7 @@ import app.marlboroadvance.mpvex.presentation.Screen
 import app.marlboroadvance.mpvex.ui.preferences.components.ThemePicker
 import app.marlboroadvance.mpvex.ui.theme.DarkMode
 import app.marlboroadvance.mpvex.ui.utils.LocalBackStack
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.serialization.Serializable
@@ -84,11 +85,13 @@ object AppearancePreferencesScreen : Screen {
             },
         ) { padding ->
             ProvidePreferenceLocals {
+                val smoothFlingBehavior = rememberSmoothFlingBehavior()
                 LazyColumn(
                     modifier =
                     Modifier
                         .fillMaxSize()
                         .padding(padding),
+                    flingBehavior = smoothFlingBehavior,
                 ) {
                     item {
                         PreferenceSectionHeader(title = stringResource(id = R.string.pref_appearance_category_theme))

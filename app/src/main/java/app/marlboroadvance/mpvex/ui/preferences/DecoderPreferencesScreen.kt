@@ -33,6 +33,7 @@ import app.marlboroadvance.mpvex.preferences.preference.collectAsState
 import app.marlboroadvance.mpvex.presentation.Screen
 import app.marlboroadvance.mpvex.ui.player.Debanding
 import app.marlboroadvance.mpvex.ui.utils.LocalBackStack
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import kotlinx.serialization.Serializable
 import me.zhanghai.compose.preference.ListPreference
 import me.zhanghai.compose.preference.ProvidePreferenceLocals
@@ -71,11 +72,13 @@ object DecoderPreferencesScreen : Screen {
       },
     ) { padding ->
       ProvidePreferenceLocals {
+        val smoothFlingBehavior = rememberSmoothFlingBehavior()
         LazyColumn(
           modifier =
             Modifier
               .fillMaxSize()
               .padding(padding),
+          flingBehavior = smoothFlingBehavior,
         ) {
           item {
             PreferenceSectionHeader(title = stringResource(R.string.pref_decoder))

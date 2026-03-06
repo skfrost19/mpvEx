@@ -56,6 +56,7 @@ import androidx.compose.ui.unit.dp
 import app.marlboroadvance.mpvex.R
 import app.marlboroadvance.mpvex.presentation.Screen
 import app.marlboroadvance.mpvex.ui.utils.LocalBackStack
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -207,8 +208,10 @@ object SettingsSearchScreen : Screen {
                         }
                     }
                 } else {
+                    val smoothFlingBehavior = rememberSmoothFlingBehavior()
                     LazyColumn(
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize(),
+                        flingBehavior = smoothFlingBehavior,
                     ) {
                         itemsIndexed(
                             items = searchResults,

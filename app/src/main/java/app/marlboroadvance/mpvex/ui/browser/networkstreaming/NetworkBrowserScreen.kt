@@ -43,6 +43,7 @@ import app.marlboroadvance.mpvex.ui.browser.components.BrowserTopBar
 import app.marlboroadvance.mpvex.ui.browser.states.EmptyState
 import app.marlboroadvance.mpvex.ui.preferences.PreferencesScreen
 import app.marlboroadvance.mpvex.ui.utils.LocalBackStack
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import kotlinx.serialization.Serializable
 import my.nanihadesuka.compose.LazyColumnScrollbar
 import my.nanihadesuka.compose.ScrollbarSettings
@@ -219,6 +220,7 @@ private fun NetworkBrowserContent(
         label = "scrollbarAlpha",
       )
 
+      val smoothFlingBehavior = rememberSmoothFlingBehavior()
       PullRefreshBox(
         isRefreshing = isRefreshing,
         onRefresh = onRefresh,
@@ -234,6 +236,7 @@ private fun NetworkBrowserContent(
         ) {
           LazyColumn(
             state = networkListState,
+            flingBehavior = smoothFlingBehavior,
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(8.dp),
           ) {

@@ -42,6 +42,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import app.marlboroadvance.mpvex.utils.storage.StorageScanUtils
 import java.io.File
 
@@ -210,7 +211,9 @@ fun FolderPickerDialog(
         }
 
         // Folder/Volume list
+        val smoothFlingBehavior = rememberSmoothFlingBehavior()
         LazyColumn(
+          flingBehavior = smoothFlingBehavior,
           modifier =
             Modifier
               .fillMaxWidth()

@@ -58,6 +58,7 @@ import app.marlboroadvance.mpvex.ui.browser.components.BrowserTopBar
 import app.marlboroadvance.mpvex.ui.browser.selection.SelectionState
 import app.marlboroadvance.mpvex.ui.browser.states.EmptyState
 import app.marlboroadvance.mpvex.ui.utils.LocalBackStack
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
@@ -155,9 +156,11 @@ object FoldersPreferencesScreen : Screen {
             )
           }
         } else {
+          val smoothFlingBehavior = rememberSmoothFlingBehavior()
           LazyColumn(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(8.dp),
+            flingBehavior = smoothFlingBehavior,
           ) {
             items(blacklistedFoldersList) { folderPath ->
               BlacklistedFolderItem(
@@ -420,10 +423,12 @@ private fun AddFolderDialog(
       } else if (availableFolders.isEmpty()) {
         Text(stringResource(R.string.pref_folders_no_folders))
       } else {
+        val smoothFlingBehavior = rememberSmoothFlingBehavior()
         LazyColumn(
           modifier = Modifier
             .fillMaxWidth()
             .height(400.dp),
+          flingBehavior = smoothFlingBehavior,
         ) {
           items(availableFolders) { folder ->
             Row(

@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import app.marlboroadvance.mpvex.R
 import app.marlboroadvance.mpvex.presentation.Screen
 import app.marlboroadvance.mpvex.ui.utils.LocalBackStack
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import kotlinx.serialization.Serializable
 import me.zhanghai.compose.preference.Preference
 import me.zhanghai.compose.preference.ProvidePreferenceLocals
@@ -73,11 +74,13 @@ object PreferencesScreen : Screen {
       },
     ) { padding ->
       ProvidePreferenceLocals {
+        val smoothFlingBehavior = rememberSmoothFlingBehavior()
         LazyColumn(
           modifier =
             Modifier
               .fillMaxSize()
               .padding(padding),
+          flingBehavior = smoothFlingBehavior,
         ) {
           // Search bar - full width, prominent placement
           item {

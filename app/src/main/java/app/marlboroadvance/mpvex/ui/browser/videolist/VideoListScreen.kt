@@ -87,6 +87,7 @@ import app.marlboroadvance.mpvex.ui.browser.states.EmptyState
 import app.marlboroadvance.mpvex.ui.browser.fab.FabScrollHelper
 import app.marlboroadvance.mpvex.ui.player.PlayerActivity
 import app.marlboroadvance.mpvex.ui.utils.LocalBackStack
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import app.marlboroadvance.mpvex.utils.media.CopyPasteOps
 import app.marlboroadvance.mpvex.utils.media.MediaUtils
 import app.marlboroadvance.mpvex.utils.sort.SortUtils
@@ -601,6 +602,9 @@ private fun VideoListContent(
           MediaLayoutMode.GRID -> videoGridColumns
         }
 
+        // Smooth scrolling behavior optimized for high refresh rate displays
+        val smoothFlingBehavior = rememberSmoothFlingBehavior()
+
         if (mediaLayoutMode == MediaLayoutMode.GRID) {
           LazyVerticalGridScrollbar(
             state = gridState,
@@ -616,10 +620,12 @@ private fun VideoListContent(
               contentPadding = PaddingValues(start = 8.dp, end = 8.dp),
               horizontalArrangement = Arrangement.spacedBy(8.dp),
               verticalArrangement = Arrangement.spacedBy(8.dp),
+              flingBehavior = smoothFlingBehavior,
             ) {
             items(
               count = videosWithInfo.size,
               key = { index -> "${videosWithInfo[index].video.id}_${videosWithInfo[index].video.path}" },
+              contentType = { "video_card" }
             ) { index ->
               val videoWithInfo = videosWithInfo[index]
               val isRecentlyPlayed = recentlyPlayedFilePath?.let { videoWithInfo.video.path == it } ?: false
@@ -657,10 +663,12 @@ private fun VideoListContent(
               state = listState,
               modifier = Modifier.fillMaxSize(),
               contentPadding = PaddingValues(start = 8.dp, end = 8.dp),
+              flingBehavior = smoothFlingBehavior,
             ) {
               items(
                 count = videosWithInfo.size,
                 key = { index -> "${videosWithInfo[index].video.id}_${videosWithInfo[index].video.path}" },
+                contentType = { "video_card" }
               ) { index ->
                 val videoWithInfo = videosWithInfo[index]
                 val isRecentlyPlayed = recentlyPlayedFilePath?.let { videoWithInfo.video.path == it } ?: false

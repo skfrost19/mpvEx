@@ -58,6 +58,7 @@ import app.marlboroadvance.mpvex.ui.browser.states.EmptyState
 import app.marlboroadvance.mpvex.ui.compose.LocalLazyGridState
 import app.marlboroadvance.mpvex.ui.compose.LocalLazyListState
 import app.marlboroadvance.mpvex.ui.utils.LocalBackStack
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import my.nanihadesuka.compose.LazyColumnScrollbar
@@ -342,6 +343,9 @@ private fun PlaylistListContent(
   
   val isGridMode = mediaLayoutMode == MediaLayoutMode.GRID
   
+  // Smooth scrolling behavior optimized for high refresh rate displays
+  val smoothFlingBehavior = rememberSmoothFlingBehavior()
+  
   // Check if at top of list to hide scrollbar during pull-to-refresh
   val isAtTop by remember {
     derivedStateOf {
@@ -386,6 +390,7 @@ private fun PlaylistListContent(
           contentPadding = PaddingValues(start = 8.dp, end = 8.dp),
           horizontalArrangement = Arrangement.spacedBy(8.dp),
           verticalArrangement = Arrangement.spacedBy(8.dp),
+          flingBehavior = smoothFlingBehavior,
         ) {
           items(
             count = playlistsWithCount.size,
@@ -419,6 +424,7 @@ private fun PlaylistListContent(
           modifier = Modifier.fillMaxSize(),
           contentPadding = PaddingValues(start = 8.dp, end = 8.dp),
           verticalArrangement = Arrangement.spacedBy(0.dp),
+          flingBehavior = smoothFlingBehavior,
         ) {
           items(playlistsWithCount, key = { it.playlist.id }) { playlistWithCount ->
             PlaylistCard(

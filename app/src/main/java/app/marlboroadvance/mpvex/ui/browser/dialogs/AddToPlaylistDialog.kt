@@ -43,6 +43,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import app.marlboroadvance.mpvex.database.entities.PlaylistEntity
 import app.marlboroadvance.mpvex.database.repository.PlaylistRepository
 import app.marlboroadvance.mpvex.domain.media.model.Video
@@ -148,7 +149,9 @@ fun AddToPlaylistDialog(
             color = MaterialTheme.colorScheme.primary,
           )
 
+          val smoothFlingBehavior = rememberSmoothFlingBehavior()
           LazyColumn(
+            flingBehavior = smoothFlingBehavior,
             modifier = Modifier.height(300.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             contentPadding = PaddingValues(vertical = 4.dp),

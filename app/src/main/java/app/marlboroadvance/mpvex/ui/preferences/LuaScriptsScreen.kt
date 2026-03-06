@@ -46,6 +46,7 @@ import app.marlboroadvance.mpvex.preferences.AdvancedPreferences
 import app.marlboroadvance.mpvex.preferences.preference.collectAsState
 import app.marlboroadvance.mpvex.presentation.Screen
 import app.marlboroadvance.mpvex.ui.utils.LocalBackStack
+import app.marlboroadvance.mpvex.ui.utils.rememberSmoothFlingBehavior
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
@@ -148,10 +149,12 @@ object LuaScriptsScreen : Screen {
         }
       },
     ) { padding ->
+      val smoothFlingBehavior = rememberSmoothFlingBehavior()
       LazyColumn(
         modifier = Modifier
           .fillMaxSize()
-          .padding(padding)
+          .padding(padding),
+        flingBehavior = smoothFlingBehavior,
       ) {
         items(availableScripts) { scriptName ->
           Column(
